@@ -1,5 +1,6 @@
-package controleestoque;
+package controleestoque.view;
 
+import controleestoque.ControllerTelaPrincipal;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,8 +31,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Titulo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lbQtdEstoque = new javax.swing.JLabel();
-        lbAtivo = new javax.swing.JLabel();
-        cbAtivo = new javax.swing.JComboBox<>();
         jsQtdEstoque = new javax.swing.JSpinner();
         btPesquisar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
@@ -63,13 +62,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         gridPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Quantidade", "Preço", "Ativo?"
+                "Código", "Nome", "Quantidade", "Preço"
             }
         ));
         gridPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -99,7 +97,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         lbPreco.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lbPreco.setText("Preço   :");
+        lbPreco.setText("Preço :");
 
         ipPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ipPreco.setToolTipText("");
@@ -113,17 +111,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Titulo.setText("Pesquisar produto");
 
         lbQtdEstoque.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lbQtdEstoque.setText("Quantidade em estoque:");
-
-        lbAtivo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lbAtivo.setText("Ativo? . . . . . . . . . . . . . . . . :");
-
-        cbAtivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Sim", "Não" }));
-        cbAtivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbAtivoActionPerformed(evt);
-            }
-        });
+        lbQtdEstoque.setText("Quantidade:");
 
         btPesquisar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btPesquisar.setText("Pesquisar");
@@ -172,27 +160,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(ipCodigo))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNome)
-                                    .addComponent(lbPreco))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ipNome)
-                                    .addComponent(ipPreco)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lbNome)
+                                .addGap(20, 20, 20)
+                                .addComponent(ipNome))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btPesquisar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btLimpar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btCadastrar)))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbQtdEstoque)
-                            .addComponent(lbAtivo))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jsQtdEstoque)
-                            .addComponent(cbAtivo, 0, 80, Short.MAX_VALUE))))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbQtdEstoque)
+                                .addGap(18, 18, 18)
+                                .addComponent(jsQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbPreco)
+                                .addGap(18, 18, 18)
+                                .addComponent(ipPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,24 +192,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCodigo)
                     .addComponent(ipCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbQtdEstoque)
-                    .addComponent(jsQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNome)
-                    .addComponent(ipNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbAtivo)
-                    .addComponent(cbAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPreco)
                     .addComponent(ipPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbNome)
+                            .addComponent(ipNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbQtdEstoque)
+                            .addComponent(jsQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPesquisar)
                     .addComponent(btLimpar)
                     .addComponent(btCadastrar))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
@@ -243,31 +230,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ipPrecoActionPerformed
 
-    private void cbAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAtivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbAtivoActionPerformed
-
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        try {
-            String codigoTexto = ipCodigo.getText().trim(); 
-            int codigo = 0;
-            if (!codigoTexto.isEmpty()) {
-                codigo = Integer.parseInt(codigoTexto);
-            }
-            String nome = ipNome.getText();
-            String precoTexto = ipPreco.getText().replace(",", ".");
-            double preco = Double.parseDouble(precoTexto);
-            int qtdEstoque = Integer.parseInt(jsQtdEstoque.getValue().toString());
-            int ativo = cbAtivo.getSelectedIndex();
+       
+        String codigo = ipCodigo.getText().trim(); 
+        String nome = ipNome.getText();
+        String preco = ipPreco.getText().replace(",", ".");
+        int qtdEstoque = Integer.parseInt(jsQtdEstoque.getValue().toString());
 
-            String mensagemErro = controller.pesquisar(codigo, nome, preco, qtdEstoque, ativo);
+        String mensagemErro = controller.pesquisar(codigo, nome, preco, qtdEstoque);
 
-            if (mensagemErro != null) {
-                JOptionPane.showMessageDialog(this, mensagemErro, "Erro", JOptionPane.ERROR_MESSAGE);
-            }      
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "O campo Código e preço aceita apenas Números", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+        if (mensagemErro != null) {
+            JOptionPane.showMessageDialog(this, mensagemErro, "Erro", JOptionPane.ERROR_MESSAGE);
+        }      
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
@@ -275,7 +249,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ipNome.setText("");
         ipPreco.setText("");
         jsQtdEstoque.setValue(0);
-        cbAtivo.setSelectedItem("Todos");
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
@@ -291,7 +264,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btPesquisar;
-    private javax.swing.JComboBox<String> cbAtivo;
     private javax.swing.JTable gridPesquisa;
     private javax.swing.JTextField ipCodigo;
     private javax.swing.JTextField ipNome;
@@ -301,7 +273,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSpinner jsQtdEstoque;
-    private javax.swing.JLabel lbAtivo;
     private javax.swing.JLabel lbCodigo;
     private javax.swing.JLabel lbNome;
     private javax.swing.JLabel lbPreco;

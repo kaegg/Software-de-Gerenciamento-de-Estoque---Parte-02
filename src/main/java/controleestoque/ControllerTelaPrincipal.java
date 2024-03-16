@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controleestoque;
 
 /**
@@ -13,10 +9,23 @@ public class ControllerTelaPrincipal {
         super();
     }
     
-    public String pesquisar(int codigo, String nome, double preco, int qtdEstoque, int ativo){
+    public String pesquisar(String codigo, String nome, String preco, int qtdEstoque){
         try {
+            if(!codigo.isEmpty()){
+                int codigoInt = Integer.parseInt(codigo);
+            }
+
+            if(!preco.isEmpty()){
+                preco = preco.replace(",", ".");
+                double codigoDouble = Double.parseDouble(preco);
+            }
             
-            System.out.println(codigo + " " + nome + " " + preco + " " + qtdEstoque + " " + ativo);
+        } catch (NumberFormatException e) {
+            return "O campo Código e preço aceita apenas Números";
+        }
+
+        try {
+            System.out.println(codigo + " " + nome + " " + preco + " " + qtdEstoque + " " );
             return null; // Retorna null se a pesquisa for bem-sucedida
         } catch (Exception e) {
             // Retorna a mensagem de erro se ocorrer um problema durante a pesquisa

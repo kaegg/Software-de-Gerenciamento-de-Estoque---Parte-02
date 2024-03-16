@@ -4,6 +4,8 @@
 
 package controleestoque;
 
+import controleestoque.view.TelaPrincipal;
+
 /**
  *
  * @author kauan
