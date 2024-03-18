@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package controleestoque;
 
-import controleestoque.view.TelaPrincipal;
+import controleestoque.view.TelaPesquisa;
 
 /**
  *
@@ -13,6 +9,6 @@ import controleestoque.view.TelaPrincipal;
 public class ControleEstoque {
 
     public static void main(String[] args) {
-        new TelaPrincipal().setVisible(true);  
+        new TelaPesquisa().setVisible(true);  
     }
 }

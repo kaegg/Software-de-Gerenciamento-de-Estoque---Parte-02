@@ -1,5 +1,7 @@
+C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\view\TelaPesquisa.java
+C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\dao\ExceptionDAO.java
 C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\ControleEstoque.java
-C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\ControllerTelaPrincipal.java
-C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\view\TelaPrincipal.java
-C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\ProdutoDAO.java
-C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\Produto.java
+C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\dao\ProdutoDAO.java
+C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\model\Produto.java
+C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\controller\ControllerPesquisa.java
+C:\Users\kauan\UEM\POO\trabalhos\controleEstoque\src\main\java\controleestoque\dao\ConnectionFactory.java
