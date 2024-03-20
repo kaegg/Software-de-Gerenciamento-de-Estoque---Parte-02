@@ -50,6 +50,10 @@ public class Produto {
     
     
     public ArrayList<Produto> pesquisarProdutos(int codigo, String nome, double preco, int qtdEstoque) throws ExceptionDAO{
-        return new ProdutoDAO().pesquisarProdutos(codigo);
+        return new ProdutoDAO().pesquisarProdutos(codigo, nome, preco, qtdEstoque);
+    }
+    
+    public void editarProduto(int codigo, String nome, String descricao, double preco, int qtdEstoque){
+       
     }
 }

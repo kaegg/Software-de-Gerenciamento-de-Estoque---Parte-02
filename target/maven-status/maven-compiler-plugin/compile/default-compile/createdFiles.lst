@@ -1,14 +1,12 @@
-controleestoque\controller\ControllerPesquisa.class
-controleestoque\view\TelaPesquisa$6.class
-controleestoque\view\TelaPesquisa$7.class
-controleestoque\view\TelaPesquisa$3.class
 controleestoque\model\Produto.class
 controleestoque\view\TelaPesquisa$2.class
 controleestoque\view\TelaPesquisa.class
 controleestoque\ControleEstoque.class
 controleestoque\dao\ProdutoDAO.class
+controleestoque\controller\ControllerPesquisa.class
 controleestoque\dao\ConnectionFactory.class
 controleestoque\view\TelaPesquisa$4.class
 controleestoque\dao\ExceptionDAO.class
 controleestoque\view\TelaPesquisa$1.class
+controleestoque\view\TelaPesquisa$3.class
 controleestoque\view\TelaPesquisa$5.class

@@ -34,7 +34,7 @@ public class ControllerPesquisa {
     
     public ArrayList<Produto> pesquisarProdutos(String codigo, String nome, String preco, int qtdEstoque) throws ExceptionDAO{
         int codigoInt = 0; 
-        double precoDouble = 0.0; 
+        double precoDouble = 0; 
         
         try {
             if(!codigo.isEmpty()){
@@ -50,7 +50,41 @@ public class ControllerPesquisa {
         } catch (NumberFormatException e) {
             throw new ExceptionDAO("O campo Código e Preço aceita apenas Números\n");
         } catch(Exception e){
-            throw new ExceptionDAO("Ocorreu um erro ao pesquisar produtos." + e + "\n");
+            throw new ExceptionDAO("Ocorreu um erro ao Pesquisar produtos." + e + "\n");
+        }
+    }
+   
+    public void editarProduto(int codigo, String coluna, String valorNovo) throws ExceptionDAO{
+        String nome = "";
+        String descricao = "";
+        double precoDouble = 0;
+        int quantidadeInt = 0;
+        
+        try{
+            switch(coluna){
+                case "Nome" -> {
+                    nome = valorNovo;
+                    System.out.println(nome);
+                }
+                case "Descrição" -> {
+                    descricao = valorNovo;
+                    System.out.println(descricao);
+                }
+                case "Preço" -> {
+                    precoDouble = Double.parseDouble(valorNovo);    
+                    System.out.println(precoDouble);
+                }
+                case "Quantidade" -> {
+                    quantidadeInt = Integer.parseInt(valorNovo);
+                    System.out.println(quantidadeInt);
+                }   
+            }
+            
+            new Produto().editarProduto(codigo, nome, descricao, precoDouble, quantidadeInt);
+        }catch(NumberFormatException e){
+            throw new ExceptionDAO("O campo Código e Preço aceita apenas Números\n");
+        }catch(Exception e){
+            throw new ExceptionDAO("Ocorreu um erro ao Editar o produto " + codigo + e + ".\n");
         }
     }
 }

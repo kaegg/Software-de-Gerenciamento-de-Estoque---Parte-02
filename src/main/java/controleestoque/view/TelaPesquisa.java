@@ -3,12 +3,9 @@ package controleestoque.view;
 import controleestoque.controller.ControllerPesquisa;
 import controleestoque.dao.ExceptionDAO;
 import controleestoque.model.Produto;
-import java.awt.Dimension;
-import java.util.logging.Level;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +17,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     
     public TelaPesquisa() {
         initComponents();
+        editarProduto();
     }
 
     @SuppressWarnings("unchecked")
@@ -70,16 +68,22 @@ public class TelaPesquisa extends javax.swing.JFrame {
 
         jtPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Código", "Nome", "Quantidade", "Preço"
+                "Código", "Nome", "Descrição", "Preço", "Quantidade"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jtPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jtPesquisa.setEnabled(false);
+        jtPesquisa.setRequestFocusEnabled(false);
         jScrollPane1.setViewportView(jtPesquisa);
 
         lbCodigo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -87,33 +91,18 @@ public class TelaPesquisa extends javax.swing.JFrame {
 
         ipCodigo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ipCodigo.setToolTipText("");
-        ipCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ipCodigoActionPerformed(evt);
-            }
-        });
 
         lbNome.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lbNome.setText("Nome  :");
 
         ipNome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ipNome.setToolTipText("");
-        ipNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ipNomeActionPerformed(evt);
-            }
-        });
 
         lbPreco.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lbPreco.setText("Preço :");
 
         ipPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ipPreco.setToolTipText("");
-        ipPreco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ipPrecoActionPerformed(evt);
-            }
-        });
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Titulo.setText("Pesquisar produto");
@@ -227,33 +216,21 @@ public class TelaPesquisa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ipCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ipCodigoActionPerformed
-
-    private void ipNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ipNomeActionPerformed
-
-    private void ipPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ipPrecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ipPrecoActionPerformed
-
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-       
         String codigo = ipCodigo.getText().trim(); 
         String nome = ipNome.getText();
         String preco = ipPreco.getText().replace(",", ".");
         int qtdEstoque = Integer.parseInt(jsQtdEstoque.getValue().toString());
 
-        DefaultTableModel tableModel = (DefaultTableModel)jtPesquisa.getModel();
+        DefaultTableModel tablePesquisa = (DefaultTableModel)jtPesquisa.getModel();
+        tablePesquisa.setRowCount(0);
         ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
         
         try {
-            ArrayList<Produto> produtos = controller.pesquisarProdutos(codigo, nome, preco, qtdEstoque);
+            ArrayList<Produto> produtos = controllerPesquisa.pesquisarProdutos(codigo, nome, preco, qtdEstoque);
 
-            produtos.forEach(produto -> {
-                tableModel.addRow(new Object[]{
+            produtos.forEach((Produto produto) -> {
+                tablePesquisa.addRow(new Object[]{
                     
                     produto.getCodigo(),
                     produto.getNome(),
@@ -262,21 +239,12 @@ public class TelaPesquisa extends javax.swing.JFrame {
                     produto.getQtdEstoque()
                         
                 });
-                System.out.println("teste " + produto.getCodigo() +
-                    produto.getNome() +
-                    produto.getDescricao() +
-                    produto.getPreco() +
-                    produto.getQtdEstoque());
-                Logger.getLogger(TelaPesquisa.class.getName()).log(Level.SEVERE, null, "enrou no for each");
             });
             
-            jtPesquisa.setModel(tableModel);
-            Logger.getLogger(TelaPesquisa.class.getName()).log(Level.SEVERE, null, "final try");
+            jtPesquisa.setModel(tablePesquisa);
         } catch (ExceptionDAO e) {
-            Logger.getLogger(TelaPesquisa.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
@@ -284,6 +252,8 @@ public class TelaPesquisa extends javax.swing.JFrame {
         ipNome.setText("");
         ipPreco.setText("");
         jsQtdEstoque.setValue(0);
+        DefaultTableModel tablePesquisa = (DefaultTableModel)jtPesquisa.getModel();
+        tablePesquisa.setRowCount(0);
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
@@ -291,9 +261,61 @@ public class TelaPesquisa extends javax.swing.JFrame {
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btPesquisarKeyPressed
-//        controller.pesquisar(ipCodigo.getText(), ipNome.getText(), ipPreco.getText(), jsQtdEstoque.getValue().toString(), cbAtivo.getSelectedIndex());
+        String codigo = ipCodigo.getText().trim(); 
+        String nome = ipNome.getText();
+        String preco = ipPreco.getText().replace(",", ".");
+        int qtdEstoque = Integer.parseInt(jsQtdEstoque.getValue().toString());
+
+        DefaultTableModel tablePesquisa = (DefaultTableModel)jtPesquisa.getModel();
+        tablePesquisa.setRowCount(0);
+        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+        
+        try {
+            ArrayList<Produto> produtos = controllerPesquisa.pesquisarProdutos(codigo, nome, preco, qtdEstoque);
+
+            produtos.forEach((Produto produto) -> {
+                tablePesquisa.addRow(new Object[]{
+                    
+                    produto.getCodigo(),
+                    produto.getNome(),
+                    produto.getDescricao(),
+                    produto.getPreco(),
+                    produto.getQtdEstoque()
+                        
+                });
+            });
+            
+            jtPesquisa.setModel(tablePesquisa);
+        } catch (ExceptionDAO e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btPesquisarKeyPressed
 
+    private void editarProduto() {
+        DefaultTableModel model = (DefaultTableModel) jtPesquisa.getModel();
+        model.addTableModelListener((TableModelEvent e) -> {
+        if (e.getType() == TableModelEvent.UPDATE) {
+            int linha = e.getFirstRow();
+            int coluna = e.getColumn();
+            Object valorAntigo = model.getValueAt(linha, coluna);
+            
+            try {
+                String valorNovo = (String) model.getValueAt(linha, coluna);
+                String nomeColuna = jtPesquisa.getColumnName(coluna);
+                int codigo = (int) model.getValueAt(linha, 0);
+
+                ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
+                controllerPesquisa.editarProduto(codigo, nomeColuna, valorNovo);
+            } catch (ExceptionDAO ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+//                model.setValueAt(valorAntigo, linha, coluna);
+            }
+        }
+    });
+}
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btCadastrar;
