@@ -64,19 +64,15 @@ public class ControllerPesquisa {
             switch(coluna){
                 case "Nome" -> {
                     nome = valorNovo;
-                    System.out.println(nome);
                 }
                 case "Descrição" -> {
                     descricao = valorNovo;
-                    System.out.println(descricao);
                 }
                 case "Preço" -> {
-                    precoDouble = Double.parseDouble(valorNovo);    
-                    System.out.println(precoDouble);
+                    precoDouble = Double.parseDouble(valorNovo);
                 }
                 case "Quantidade" -> {
                     quantidadeInt = Integer.parseInt(valorNovo);
-                    System.out.println(quantidadeInt);
                 }   
             }
             
@@ -84,7 +80,7 @@ public class ControllerPesquisa {
         }catch(NumberFormatException e){
             throw new ExceptionDAO("O campo Código e Preço aceita apenas Números\n");
         }catch(Exception e){
-            throw new ExceptionDAO("Ocorreu um erro ao Editar o produto " + codigo + e + ".\n");
+            throw new ExceptionDAO("Ocorreu um erro ao Editar o produto " + codigo + " " + e + ".\n");
         }
     }
 }

@@ -218,7 +218,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         String codigo = ipCodigo.getText().trim(); 
-        String nome = ipNome.getText();
+        String nome = ipNome.getText().trim();
         String preco = ipPreco.getText().replace(",", ".");
         int qtdEstoque = Integer.parseInt(jsQtdEstoque.getValue().toString());
 

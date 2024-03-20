@@ -53,7 +53,7 @@ public class Produto {
         return new ProdutoDAO().pesquisarProdutos(codigo, nome, preco, qtdEstoque);
     }
     
-    public void editarProduto(int codigo, String nome, String descricao, double preco, int qtdEstoque){
-       
+    public void editarProduto(int codigo, String nome, String descricao, double preco, int qtdEstoque) throws ExceptionDAO{
+       new ProdutoDAO().editarProduto(codigo, nome, descricao, preco, qtdEstoque);
     }
 }
