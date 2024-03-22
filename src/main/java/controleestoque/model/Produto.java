@@ -56,4 +56,12 @@ public class Produto {
     public void editarProduto(int codigo, String nome, String descricao, double preco, int qtdEstoque) throws ExceptionDAO{
        new ProdutoDAO().editarProduto(codigo, nome, descricao, preco, qtdEstoque);
     }
+    
+    public void deletarProduto(int codigo) throws ExceptionDAO{
+        new ProdutoDAO().deletarProdutos(codigo);
+    }
+    
+    public void cadastrarProduto(Produto produto) throws ExceptionDAO{
+        new ProdutoDAO().cadastrarProduto(produto);
+    }
 }

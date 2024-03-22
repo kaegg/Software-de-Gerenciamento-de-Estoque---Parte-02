@@ -1,6 +1,6 @@
 package controleestoque;
 
-import controleestoque.view.TelaPesquisa;
+import controleestoque.view.TelaPrincipal;
 
 /**
  *
@@ -9,6 +9,6 @@ import controleestoque.view.TelaPesquisa;
 public class ControleEstoque {
 
     public static void main(String[] args) {
-        new TelaPesquisa().setVisible(true);  
+        new TelaPrincipal().setVisible(true);  
     }
 }

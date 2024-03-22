@@ -8,30 +8,11 @@ import java.util.ArrayList;
  *
  * @author kauan
  */
-public class ControllerPesquisa {
-    public ControllerPesquisa(){
+public class ControllerTelaPrincipal {
+    public ControllerTelaPrincipal(){
         super();
     }
-    
-    public String pesquisar(String codigo, String nome, String preco, int qtdEstoque){
-        try {
-            if(!codigo.isEmpty()){
-                int codigoInt = Integer.parseInt(codigo);
-            }
-
-            if(!preco.isEmpty()){
-                preco = preco.replace(",", ".");
-                double codigoDouble = Double.parseDouble(preco);
-            }
-        } catch (NumberFormatException e) {
-            return "O campo Código e preço aceita apenas Números";
-        } catch(Exception e){
-            return "Ocorreu um erro na pesquisa: " + e;
-        }
-        
-        return null;
-    }
-    
+   
     public ArrayList<Produto> pesquisarProdutos(String codigo, String nome, String preco, int qtdEstoque) throws ExceptionDAO{
         int codigoInt = 0; 
         double precoDouble = 0; 
@@ -54,7 +35,7 @@ public class ControllerPesquisa {
         }
     }
    
-    public void editarProduto(int codigo, String coluna, String valorNovo) throws ExceptionDAO{
+    public boolean editarProduto(int codigo, String coluna, String valorNovo) throws ExceptionDAO{
         String nome = "";
         String descricao = "";
         double precoDouble = 0;
@@ -77,10 +58,21 @@ public class ControllerPesquisa {
             }
             
             new Produto().editarProduto(codigo, nome, descricao, precoDouble, quantidadeInt);
+            
+            return true;
         }catch(NumberFormatException e){
             throw new ExceptionDAO("O campo Código e Preço aceita apenas Números\n");
         }catch(Exception e){
             throw new ExceptionDAO("Ocorreu um erro ao Editar o produto " + codigo + " " + e + ".\n");
         }
+    }
+    
+    public boolean deletarProduto(int codigo) throws ExceptionDAO{
+        if(codigo != 0){
+            new Produto().deletarProduto(codigo);
+            return true;
+        }else{
+            throw new ExceptionDAO("Não foi possível realizar a remoção do produto, por favor tente novamente");
+        } 
     }
 }

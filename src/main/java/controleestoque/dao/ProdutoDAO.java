@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class ProdutoDAO {
     public ArrayList<Produto> pesquisarProdutos(int codigo, String nome, double preco, int qtdEstoque) throws ExceptionDAO{
-            StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM produtos WHERE 1");
+            StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM produtos WHERE 1=1");
 
             if (codigo != 0) {
                 sqlBuilder.append(" AND codigo = ?");
@@ -141,58 +141,23 @@ public class ProdutoDAO {
         }
     }
     
-    /* AJEITA ESSA BOMBA DEPOIS, VE SE TA FUNFANDO....
-    public void removerProdutos(int codigo, String nome, double preco, int qtdEstoque) throws ExceptionDAO {
-        StringBuilder sqlBuilder = new StringBuilder("DELETE FROM produtos WHERE 1=1");
-    
-        if (codigo != 0) {
-            sqlBuilder.append(" AND codigo = ?");
-        }
-    
-        if (nome != null && !nome.isEmpty()) {
-            sqlBuilder.append(" AND nome LIKE ?");
-        }
-    
-        if (preco > 0) {
-            sqlBuilder.append(" AND preco >= ?");
-        }
-    
-        if (qtdEstoque != 0) {
-            sqlBuilder.append(" AND quantidade >= ?");
-        }
-    
+    public void deletarProdutos(int codigo) throws ExceptionDAO {
+        String sqlBuilder = "DELETE FROM produtos WHERE 1=1 AND codigo = ?";
+        
         Connection connection = null;
         PreparedStatement pStatement = null;
     
         try {
             connection = ConnectionFactory.getConnection();
-            pStatement = connection.prepareStatement(sqlBuilder.toString());
-            int parameterIndex = 1;
-    
-            if (codigo != 0) {
-                pStatement.setInt(parameterIndex++, codigo);
-            }
-    
-            if (nome != null && !nome.isEmpty()) {
-                pStatement.setString(parameterIndex++, nome + "%");
-            }
-    
-            if (preco > 0) {
-                pStatement.setDouble(parameterIndex++, preco);
-            }
-    
-            if (qtdEstoque != 0) {
-                pStatement.setInt(parameterIndex, qtdEstoque);
-            }
-    
+            pStatement = connection.prepareStatement(sqlBuilder);
+            pStatement.setInt(1, codigo);
+   
             int rowsAffected = pStatement.executeUpdate();
     
             if (rowsAffected == 0) {
-                System.out.println("Nenhum produto encontrado com os critérios especificados para remoção.");
-            } else {
-                System.out.println("Produtos removidos com sucesso.");
-            }
-    
+                throw new ExceptionDAO("Ocorreu um erro ao deletar o produto de código " + codigo);
+            } 
+            
         } catch (SQLException e) {
             throw new ExceptionDAO("Erro ao realizar a remoção de produtos: " + e + "\n");
         } finally {
@@ -213,6 +178,47 @@ public class ProdutoDAO {
             }
         }
     }
-    */
- 
+    
+    public void cadastrarProduto(Produto produto) throws ExceptionDAO{
+        String sqlBuilder = "INSERT INTO produtos (codigo, nome, descricao, preco, quantidade) VALUES (?, ?, ?, ?, ?) ";
+        
+        Connection connection = null;
+        PreparedStatement pStatement = null;
+        
+         try {
+            connection = ConnectionFactory.getConnection();
+            pStatement = connection.prepareStatement(sqlBuilder);
+            
+            pStatement.setInt(1, produto.getCodigo());
+            pStatement.setString(2, produto.getNome());
+            pStatement.setString(3, produto.getDescricao());
+            pStatement.setDouble(4, produto.getPreco());
+            pStatement.setInt(5, produto.getQtdEstoque());
+   
+            int rowsAffected = pStatement.executeUpdate();
+    
+            if (rowsAffected == 0) {
+                throw new ExceptionDAO("Ocorreu um erro ao realizar o cadastro do produto " + produto.getCodigo());
+            } 
+            
+        } catch (SQLException e) {
+            throw new ExceptionDAO("Erro ao realizar a o cadastro de produtos: " + e + "\n");
+        } finally {
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                }
+            } catch (SQLException e) {
+                throw new ExceptionDAO("Erro ao fechar o prepared statement: " + e + "\n");
+            }
+    
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                throw new ExceptionDAO("Erro ao fechar a conexão com o banco: " + e + "\n");
+            }
+        }
+    }
 }

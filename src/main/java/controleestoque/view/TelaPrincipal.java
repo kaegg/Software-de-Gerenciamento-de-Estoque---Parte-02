@@ -1,6 +1,6 @@
 package controleestoque.view;
 
-import controleestoque.controller.ControllerPesquisa;
+import controleestoque.controller.ControllerTelaPrincipal;
 import controleestoque.dao.ExceptionDAO;
 import controleestoque.model.Produto;
 import java.util.ArrayList;
@@ -12,10 +12,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kauan
  */
-public class TelaPesquisa extends javax.swing.JFrame {         
-    private ControllerPesquisa controller = new ControllerPesquisa();
+public class TelaPrincipal extends javax.swing.JFrame {         
+    private final ControllerTelaPrincipal controller = new ControllerTelaPrincipal();
     
-    public TelaPesquisa() {
+    public TelaPrincipal() {
         initComponents();
         editarProduto();
     }
@@ -41,6 +41,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
         btPesquisar = new javax.swing.JButton();
         btLimpar = new javax.swing.JButton();
         btCadastrar = new javax.swing.JButton();
+        btDeletar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -99,7 +100,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
         ipNome.setToolTipText("");
 
         lbPreco.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lbPreco.setText("Preço :");
+        lbPreco.setText("Preço . . . . . :");
 
         ipPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ipPreco.setToolTipText("");
@@ -139,6 +140,14 @@ public class TelaPesquisa extends javax.swing.JFrame {
             }
         });
 
+        btDeletar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btDeletar.setText("Deletar");
+        btDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeletarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,16 +175,19 @@ public class TelaPesquisa extends javax.swing.JFrame {
                                 .addComponent(btLimpar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btCadastrar)))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbQtdEstoque)
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbPreco)
+                                    .addComponent(lbQtdEstoque))
                                 .addGap(18, 18, 18)
-                                .addComponent(jsQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ipPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jsQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbPreco)
                                 .addGap(18, 18, 18)
-                                .addComponent(ipPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btDeletar)))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -186,12 +198,11 @@ public class TelaPesquisa extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ipPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbCodigo)
-                        .addComponent(ipCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbPreco)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbCodigo)
+                    .addComponent(ipCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPreco)
+                    .addComponent(ipPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -207,7 +218,8 @@ public class TelaPesquisa extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPesquisar)
                     .addComponent(btLimpar)
-                    .addComponent(btCadastrar))
+                    .addComponent(btCadastrar)
+                    .addComponent(btDeletar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -217,34 +229,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        String codigo = ipCodigo.getText().trim(); 
-        String nome = ipNome.getText().trim();
-        String preco = ipPreco.getText().replace(",", ".");
-        int qtdEstoque = Integer.parseInt(jsQtdEstoque.getValue().toString());
-
-        DefaultTableModel tablePesquisa = (DefaultTableModel)jtPesquisa.getModel();
-        tablePesquisa.setRowCount(0);
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-        
-        try {
-            ArrayList<Produto> produtos = controllerPesquisa.pesquisarProdutos(codigo, nome, preco, qtdEstoque);
-
-            produtos.forEach((Produto produto) -> {
-                tablePesquisa.addRow(new Object[]{
-                    
-                    produto.getCodigo(),
-                    produto.getNome(),
-                    produto.getDescricao(),
-                    produto.getPreco(),
-                    produto.getQtdEstoque()
-                        
-                });
-            });
-            
-            jtPesquisa.setModel(tablePesquisa);
-        } catch (ExceptionDAO e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+        carregarDadosTabela();
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
@@ -257,21 +242,57 @@ public class TelaPesquisa extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        // TODO add your handling code here:
+        new TelaCadastro().setVisible(true);
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void btPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btPesquisarKeyPressed
+        carregarDadosTabela();
+    }//GEN-LAST:event_btPesquisarKeyPressed
+
+    private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jtPesquisa.getModel();
+        int[] linhasSelecionadas = jtPesquisa.getSelectedRows();
+        boolean deletouTodos = true;
+        
+        if(linhasSelecionadas.length == 0){
+            JOptionPane.showMessageDialog(null, "Não existem linhas selecionadas para realizar a remoção!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        for(int i = 0; i < linhasSelecionadas.length; i++){
+            int linhaSelecionada = linhasSelecionadas[i];
+            int codigo = (int) model.getValueAt(linhaSelecionada, 0);
+
+            try{
+                boolean deletou = controller.deletarProduto(codigo);
+                if(!deletou){
+                    deletouTodos = false;
+                }
+            }catch(ExceptionDAO e){
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+        }
+        
+        if (deletouTodos){
+           JOptionPane.showMessageDialog(null, "Produto(s) deletado(s) com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE); 
+        }
+        
+        carregarDadosTabela();
+    }//GEN-LAST:event_btDeletarActionPerformed
+              
+    private void carregarDadosTabela(){
         String codigo = ipCodigo.getText().trim(); 
-        String nome = ipNome.getText();
+        String nome = ipNome.getText().trim();
         String preco = ipPreco.getText().replace(",", ".");
         int qtdEstoque = Integer.parseInt(jsQtdEstoque.getValue().toString());
-
+        
         DefaultTableModel tablePesquisa = (DefaultTableModel)jtPesquisa.getModel();
         tablePesquisa.setRowCount(0);
-        ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
         
         try {
-            ArrayList<Produto> produtos = controllerPesquisa.pesquisarProdutos(codigo, nome, preco, qtdEstoque);
+            ArrayList<Produto> produtos = controller.pesquisarProdutos(codigo, nome, preco, qtdEstoque);
 
             produtos.forEach((Produto produto) -> {
                 tablePesquisa.addRow(new Object[]{
@@ -289,36 +310,37 @@ public class TelaPesquisa extends javax.swing.JFrame {
         } catch (ExceptionDAO e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
-    }//GEN-LAST:event_btPesquisarKeyPressed
-
+    }
+    
     private void editarProduto() {
         DefaultTableModel model = (DefaultTableModel) jtPesquisa.getModel();
         model.addTableModelListener((TableModelEvent e) -> {
         if (e.getType() == TableModelEvent.UPDATE) {
             int linha = e.getFirstRow();
             int coluna = e.getColumn();
-            Object valorAntigo = model.getValueAt(linha, coluna);
             
             try {
                 String valorNovo = (String) model.getValueAt(linha, coluna);
                 String nomeColuna = jtPesquisa.getColumnName(coluna);
                 int codigo = (int) model.getValueAt(linha, 0);
-
-                ControllerPesquisa controllerPesquisa = new ControllerPesquisa();
-                controllerPesquisa.editarProduto(codigo, nomeColuna, valorNovo);
+                
+                boolean editou = controller.editarProduto(codigo, nomeColuna, valorNovo);
+                
+                if(editou){
+                    JOptionPane.showMessageDialog(null, "Coluna " + nomeColuna + " do produto " + codigo + " alterado com sucesso!", "Sucesso!", JOptionPane.INFORMATION_MESSAGE); 
+                }
             } catch (ExceptionDAO ex) {
+                carregarDadosTabela();
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-//                model.setValueAt(valorAntigo, linha, coluna);
             }
         }
     });
 }
-
-    
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btCadastrar;
+    private javax.swing.JButton btDeletar;
     private javax.swing.JButton btLimpar;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JTextField ipCodigo;
@@ -335,4 +357,5 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private javax.swing.JLabel lbPreco;
     private javax.swing.JLabel lbQtdEstoque;
     // End of variables declaration//GEN-END:variables
+
 }
